@@ -14,16 +14,43 @@ public class OneOfEachStats {
 		int seed = Integer.parseInt(args[1]);
 		// Initailizes a random numbers generator with the given seed value
         Random generator = new Random(seed);  
-		
-		//// In the previous version of this program, you used a statement like:
-		//// double rnd = Math.random();
-		//// Where "rnd" is the variable that stores the generated random value.
-		//// In this version of the program, replace this statement with:
-		//// double rnd = generator.nextDouble();
-		//// This statement will generate a random value in the range [0,1),
-		//// just like you had in the previous version, except that the 
-		//// randomization will be based on the given seed.
-		//// This is the only change that you have to do in the program.
-		    
+		int countTwo = 0; 
+		int countThree = 0;
+		int countFourPlus = 0;
+		int total = 0; // assigning variable for total number of children
+		double average = 0; // assigning variable for average number of children per experiment
+		for (int i = 0; i < T; i++) { // checks every experiment
+			int children = 0;
+			boolean boy = false;
+			boolean girl = false;
+			while (boy == false || girl == false) { // runs until both genders have been born
+				if (generator.nextDouble() < 0.5) { 
+					boy = true;
+				} else {
+					girl = true;
+				}
+				children++; // counts total children for experiment
+			}
+		// incriminates total children and children categories according to number of children in each exepriment 
+		if (children == 2) countTwo++;
+		else if (children ==3) countThree++;
+		else countFourPlus++;
+		total = total + children;
+		}	
+		average = (double) total / T;
+		System.out.println("Average: " + average + " children to get at least one of each gender.");
+		System.out.println("Number of families with 2 children: "+ countTwo);
+		System.out.println("Number of families with 3 children: "+ countThree);
+		System.out.println("Number of families with 4 or more children: "+ countFourPlus);
+		// checks the most common number of children and prints
+		int common = Math.max(countTwo, Math.max(countThree, countFourPlus));
+		if (common == countTwo) {
+			System.out.println("The most common number of children is 2.");
+		} else if (common == countThree) {
+			System.out.println("The most common number of children is 3.");	
+		} else {
+			System.out.println("The most common number of children is 4 or more.");
+		}
 	}
 }
+
